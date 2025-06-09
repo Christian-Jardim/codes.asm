@@ -1,4 +1,4 @@
-    .data
+.data:
 matrix:  .space 400000000  # 10000 * 10000 * 4 bytes (for simplicity, assuming this is enough space)
 
     .text
