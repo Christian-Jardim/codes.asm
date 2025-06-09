@@ -1,5 +1,7 @@
-main:
+data:
     matrix:  .space 40000  # 100 * 100 * 4 bytes (tamnho da matriz)
+
+main:
     li      $t0, 0          # sum1 = 0 -> $t0
     li      $t1, 0          # i = 0 -> $t1
     li      $t2, 0          # j = 0 -> $t2
