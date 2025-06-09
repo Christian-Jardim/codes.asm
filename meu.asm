@@ -1,9 +1,9 @@
 .main:
-    li      $t0, 0                       #sum1
-    li      $t1, 0          # $t1 is i, initialize to 0
-    li      $t2, 0          # $t2 is j, initialize to 0
-    li      $t3, 10000      # $t3 is N, constant value 10000
-    li      $t8, 0x00000000
+        addi $t0, $zero, 0        # i = 0
+        addi $t1, $zero, 0        # j = 0
+        addi $t2, $zero, 0        # sum =0
+        addi $t3, $zero, 100      # N = 100
+        addi $t4, $zero, 0x0      # Indereço base da matriz
 
 loop_i:
     beq     $t1, $t3, end_loop_i  # if i >= N, exit outer loop
