@@ -16,25 +16,6 @@ loop_j:
         addi $t4, $zero, 0        # offset = 0
         addi $t8, $zero, 0        # counter = 0
 
-mult_loop:
-        beq  $t8, $t7, mult_done
-        add  $t4, $t4, $t0        # offset += i
-        addi $t8, $t8, 1
-        j mult_loop
-mult_done:
-        add  $t4, $t4, $t1        # offset += j
-
-        #### Compute address = base + offset * 4 ####
-        add  $t5, $t4, $t4        # offset * 2
-        add  $t5, $t5, $t5        # offset * 4
-        add  $t5, $t3, $t5        # address = base + offset * 4
-
-        lw   $t6, 0($t5)          # Load matrix[i][j]
-        add  $t2, $t2, $t6        # sum1 += matrix[i][j]
-
-        addi $t1, $t1, 1          # j++
-        j inner_loop
-
 end_inner:
         addi $t0, $t0, 1          # i++
         j outer_loop
