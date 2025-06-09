@@ -4,7 +4,7 @@ matrix:  .space 400000000  # 10000 * 10000 * 4 bytes (for simplicity, assuming t
     .text
     .globl main
 
-main:
+.main:
     # Initialize sum1 to 0
     li      $t0, 0          # $t0 will store sum1, initialize to 0
     
