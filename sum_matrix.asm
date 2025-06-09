@@ -1,16 +1,16 @@
 .main:
         addi $t0, $zero, 0        # i = 0
-        addi $t2, $zero, 0        # sum1 = 0
-        addi $t7, $zero, 100      # Constant 100
-        addi $t3, $zero, 0x1000   # Base address of matrix
+        addi $t1, $zero, 0        # j = 0
+        addi $t2, $zero, 0        # sum =0
+        addi $t3, $zero, 100      # N = 100
+        addi $t4, $zero, 0x0      # Indereço base da matriz
 
-outer_loop:
-        beq  $t0, $t7, end_outer  # if i == 100, end
-
+loop_i:
+        beq  $t0, $t3, end_i      # if i == 100, end
         addi $t1, $zero, 0        # j = 0
 
-inner_loop:
-        beq  $t1, $t7, end_inner  # if j == 100, end inner loop
+loop_j:
+        beq  $t1, $t3, end_j      # if j == 100, end j
 
         #### Compute offset = i * 100 + j ####
         addi $t4, $zero, 0        # offset = 0
