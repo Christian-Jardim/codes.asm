@@ -1,34 +1,25 @@
-.main:
-        addi $t0, $zero, 0        # i = 0
-        addi $t1, $zero, 0        # j = 0
-        addi $t2, $zero, 0        # sum =0
-        addi $t3, $zero, 100      # N = 100
-        addi $t4, $zero, 0x0      # Indereço base da matriz
+.text
+.globl main
+main:
+        addi    $t1, $zero, 3          # N = 3
+        mul     $t2, $t1, $t1          # t2 = N * N
 
-loop_i:
-    beq     $t1, $t3, end_loop_i  # if i >= N, exit outer loop
-    li      $t2, 0          # $t2 = j = 0
-    
-loop_j:
-    beq     $t2, $t3, end_loop_j  # if j >= N, exit inner loop
-    
-    lw 
-    #mul     $t4, $t1, $t3       # $t4 = i * N (this gives the row offset)
-    #add     $t4, $t4, $t2         # $t4 = i * N + j (this gives the column offset)
-    #sll     $t4, $t4, 2           # $t4 = (i * N + j) * 4 (to account for 4 bytes per element)
-    #add      $t5, $t8, $zero           # Load base address of matrix into $t5
-    #add     $t6, $t5, $t4         # $t6 = address of matrix[i][j]
-    #lw      $t7, 0($t6)           # Load matrix[i][j] into $t7
-    
-    add     $t0, $t0, $t7         # sum1 += matrix[i][j]
-    
-    addi    $t2, $t2, 1           # j++
-    j       loop_j                # Jump to the next iteration of the inner loop
+        la      $t0, matrix            # t0 = base address of matrix
+        addi    $t3, $zero, 0          # i = 0
+        addi    $t6, $zero, 0          # sum = 0
+        addi    $t8, $zero, 4          # word size = 4
 
-end_loop_j:
-    addi    $t1, $t1, 1           # i++
-    j       loop_i                # Jump to the next iteration of the outer loop
+loop:
+        mul     $t4, $t3, $t8          # offset = i * 4
+        add     $t4, $t0, $t4          # effective address = base + offset
+        lw      $t5, 0($t4)            # load matrix[i]
+        add     $t6, $t6, $t5          # sum += matrix[i]
+        addi    $t3, $t3, 1            # i++
+        beq     $t3, $t2, end          # if i == N*N, end loop
+        j       loop
 
-end_loop_i:
-    li      $v0, 10               # syscall for exit
-    syscall
+end:
+        la      $t7, result            # address to store result
+        sw      $t6, 0($t7)            # store the result
+        li      $v0, 10                # exit syscall
+        syscall
