@@ -1,48 +1,24 @@
-.main:
-    # Initialize sum1 to 0
-    li      $t0, 0          # $t0 will store sum1, initialize to 0
-    
-    # Set up loop variables
-    li      $t1, 0          # $t1 is i, initialize to 0
-    li      $t2, 0          # $t2 is j, initialize to 0
-    li      $t3, 10000      # $t3 is N, constant value 10000
-    
-loop_i:
-    # Compare i with N (10000)
-    bge     $t1, $t3, end_loop_i  # if i >= N, exit outer loop
-    
-    # Reset j to 0 for each new i
-    li      $t2, 0          # $t2 = j = 0
-    
-loop_j:
-    # Compare j with N (10000)
-    bge     $t2, $t3, end_loop_j  # if j >= N, exit inner loop
-    
-    # Calculate the address of matrix[i][j]
-    mul     $t4, $t1, 10000       # $t4 = i * N (this gives the row offset)
-    add     $t4, $t4, $t2         # $t4 = i * N + j (this gives the column offset)
-    sll     $t4, $t4, 2           # $t4 = (i * N + j) * 4 (to account for 4 bytes per element)
-    la      $t5, matrix           # Load base address of matrix into $t5
-    add     $t6, $t5, $t4         # $t6 = address of matrix[i][j]
-    lw      $t7, 0($t6)           # Load matrix[i][j] into $t7
-    
-    # Add matrix[i][j] to sum1
-    add     $t0, $t0, $t7         # sum1 += matrix[i][j]
-    
-    # Increment j
-    addi    $t2, $t2, 1           # j++
-    j       loop_j                # Jump to the next iteration of the inner loop
+main:   li      $t8, 1
+        sw      $t8, 0($zero)
+        sw      $t8, 4($zero)
+        sw      $t8, 8($zero)
+        sw      $t8, 12($zero)
 
-end_loop_j:
-    # Increment i
-    addi    $t1, $t1, 1           # i++
-    j       loop_i                # Jump to the next iteration of the outer loop
+        addi    $t1, $zero, 2         
+        mul     $t2, $t1, $t1          
 
-end_loop_i:
-    # Now, sum1 is in $t0, you can store it or use it
-    # Example: store sum1 at some memory location (if desired)
-    # sw      $t0, sum1_location   # Uncomment and define sum1_location if needed
-    
-    # Exit program (terminate)
-    li      $v0, 10               # syscall for exit
-    syscall
+        li      $t0, 0x0            
+        addi    $t3, $zero, 0          
+        addi    $t6, $zero, 0         
+        addi    $t8, $zero, 4         
+
+loop:   mul     $t4, $t3, $t8          
+        add     $t4, $t0, $t4          
+        lw      $t5, 0($t4)
+        add     $t6, $t6, $t5
+        beq     $t3, $t2, end 
+        addi    $t3, $t3, 1            
+        j       loop
+
+end:    li      $v0, 10         
+        syscall
