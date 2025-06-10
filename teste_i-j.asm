@@ -1,15 +1,11 @@
 li $t0, 1
+li $t1, 2
 sw $t0,0($zero)
 sw $t0,4($zero)
 sw $t0,8($zero)
-sw $t0,12($zero)
-sw $t0,16($zero)
-sw $t0,20($zero)
-sw $t0,24($zero)
-sw $t0,28($zero)
-sw $t0,32($zero)
+sw $t2,12($zero)
 
-main:   li      $t1, 3                # N = 100
+main:   li      $t1, 2                # N = 100
             li     $t2, 0           #  j     
 
         li      $t0, 0x0                # endereço base (matriz) = 0
