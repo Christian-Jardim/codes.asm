@@ -1,0 +1,40 @@
+li $t0, 1
+sw $t0,0($zero)
+sw $t0,4($zero)
+sw $t0,8($zero)
+sw $t0,12($zero)
+sw $t0,16($zero)
+sw $t0,20($zero)
+sw $t0,24($zero)
+sw $t0,28($zero)
+sw $t0,32($zero)
+
+main:   li      $t1, 3                # N = 100
+            li     $t2, 0           #  j     
+
+        li      $t0, 0x0                # endereço base (matriz) = 0
+        addi    $t3, $zero, 0           # i = 0
+        addi    $t6, $zero, 0           # sum = 0
+        addi    $t8, $zero, 4           # base = 4
+
+loop:# beq $t2, $t1, loop_i
+        mul     $t4, $t1, $t8           # base * N
+        mul     $t4, $t4, $t2            #(base * N) * j
+        mul     $t7, $t3, $t8            # i * base
+        add     $t4, $t4, $t7            
+        add     $t4, $t4, $t0
+       
+ lw      $t5, 0($t4)             # Carrega o dado do endereço
+
+        add     $t6, $t6, $t5           # sum += (dado do endereço)
+beq $t2, $t1, loop_i
+        addi    $t2, $t2, 1             # i++
+        j       loop                    # Continua programa
+
+loop_i: beq $t3, $t1, end
+           addi $t3, $t3, 1
+           li $t2, 0
+           j loop
+
+end:    li      $v0, 10                 # Encerra programa
+        syscall
