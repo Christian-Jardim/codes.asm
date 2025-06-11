@@ -13,7 +13,8 @@ addi    $t3, $zero, 0
 addi    $t6, $zero, 0           
 addi    $t8, $zero, 4           
 
-loop:# beq $t2, $t1, loop_i
+loop:
+beq $t2, $t1, loop_i
 mul     $t4, $t1, $t8           
 mul     $t4, $t4, $t2           
 mul     $t7, $t3, $t8           
