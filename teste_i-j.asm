@@ -1,5 +1,5 @@
 main:   
-addi    $t1, $zero, 100       # N = 100       
+addi    $t1, $zero, 10        # N = 10       
 addi    $t2, $zero, 0         # j = 0
 addi    $t0, $zero, 0x0       # endereço base (matriz) = 0      
 addi    $t3, $zero, 0         # i = 0
