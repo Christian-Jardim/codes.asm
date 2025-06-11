@@ -1,4 +1,4 @@
-main:   li      $t1, 100                # N = 100
+main:   li      $t1, 10                 # N = 10
         mul     $t2, $t1, $t1           # Tamanho da matriz[N][N]       
 
         li      $t0, 0x0                # endereço base (matriz) = 0
